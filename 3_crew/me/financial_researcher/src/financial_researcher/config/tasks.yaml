@@ -18,6 +18,24 @@ research_task:
 
   agent: researcher
 
+technical_analysis_task:
+  description: >
+    Analyze the 1 year daily stock price action chart of the {company}. Focus on:
+    1. Finding pattern which can help perdicting the next move in the stock price.
+
+    Make sure to organize your findings in a structured format with clear sections.
+  
+  expected_output: >
+    A comprehensive analysis on {company} stock price potential next move.
+
+  agent: technical_analyst
+
+  context:
+    - research_task
+
+  output_file: output/ta-{company}.md
+
+
 analysis_task:
   description: >
     Analyze the research findings and create a comprehensive report on {company}.
@@ -26,7 +44,8 @@ analysis_task:
     2. Include all key information from the research.
     3. Provide insightful analysis of trends and patterns.
     4. Offer a market outlook for company, noting that this should not be used for trading decisions.
-    5. Be formatted in a professional, easy-to-read style with clear headings.
+    5. Include potential next move of the {company}'s stock price
+    6. Be formatted in a professional, easy-to-read style with clear headings.
 
   expected_output: >
     A polished, professional report on {company} that represents the research
@@ -34,6 +53,8 @@ analysis_task:
     with an executive summary, main sections and conclusions.
   
   agent: analyst
+
   context:
     - research_task
+    - technical_analysis_task
   output_file: output/report-{company}.md

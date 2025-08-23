@@ -27,10 +27,23 @@ class FinancialResearcher():
             verbose=True
         )
 
+    @agent
+    def technical_analyst(self) -> Agent:
+        return Agent(
+            config=self.agents_config['technical_analyst'], # type: ignore[index]
+            verbose=True
+        )
+
     @task
     def research_task(self) -> Task:
         return Task(
             config=self.tasks_config['research_task'], # type: ignore[index]
+        )
+
+    @task
+    def technical_analysis_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['technical_analysis_task'], # type: ignore[index]
         )
 
     @task
@@ -48,4 +61,5 @@ class FinancialResearcher():
             tasks=self.tasks, # Automatically created by the @task decorator
             process=Process.sequential,
             verbose=True,
+            output_log_file=True,
         )
